@@ -1,16 +1,18 @@
-# IndiaHacks - Travel Mate
+Travel Mate
 
-A must have app for all the travellers out there. The app provides user with everything  <b> From Planning to Journey </b> and also from <b> From Journey to Destination </b>.
+A must have app for all the travellers out there. The app provides user with everything **From Planning to Journey** and also from **From Journey to Destination**. The system basically uses a [mash-up technology](https://en.wikipedia.org/wiki/Mashup_(web_application_hybrid))
 
 
 
 + **[How Travel Mate Works](#how-travel-mate-works)**
-+ **[Features](#phases)**
++ **[Travel Phases](#phases)**
   + [Planning Phase](#1planning-phase)
   + [Travel Phase](#2travel-phase)
   + [Trip Phase](#3trip-phase)
 + **[Presentation](https://docs.google.com/presentation/d/1gdx3OZjdIcqVqsgAj2jz-REFT7xI716d6iNE_1XBg4A/edit#slide=id.g710e630f2_1_124)**
 + **[Contact Us](#contact-us)**
++ **[Video URL](https://www.youtube.com/watch?v=D7fZXdUryeM)**
++ **[Presentation](https://docs.google.com/presentation/d/1gdx3OZjdIcqVqsgAj2jz-REFT7xI716d6iNE_1XBg4A/edit?usp=sharing)**
 
 
 
@@ -22,11 +24,11 @@ While travelling from one place to another, there are a lot of factors to be con
 The product includes a wide variety of options- from Selection of Mode of Transport to finding out about the place of visit to provision of Best music,novels depending on the mood of the traveller. The app basically works in 3 phases. 
 
 ##Phases
-##1.Planning Phase
-Before you finalize your trip, we give you options across the country. You can “virtually” explore the city through our app. Choose your destination city and get to know about many important things in the city. Be it anything : Fun Facts, Climate, Culture, Restaurants, Hangout Places, Monuments (if any), Shopping Complexes. The UI is kept fun and colorful to keep the user engaged in the app. Obviously, People like to travel with their F.R.I.E.N.D.S., so we have a share option, by which user can share the facts with the friend and invite him to join :)
+###1.Planning Phase
+Before you finalize your trip, we give you options across the country. You can “virtually” explore the city through our app. Choose your destination city and get to know about many important things in the city. Be it anything : Fun Facts, Climate, Culture, Restaurants, Hangout Places, Monuments (if any), Shopping Complexes. The UI is kept fun and colorful to keep the user engaged in the app. Obviously, People like to travel with their F.R.I.E.N.D.S., so we have a share option, by which user can share the facts with the friend and invite him to join
 
-<img src="https://github.com/Swati4star/IndiaHacks---Travel-and-Transportation/blob/master/screenshots/plan_journey.png" width="200px" height="400px" />
-<img src="https://github.com/Swati4star/IndiaHacks---Travel-and-Transportation/blob/master/screenshots/change_source_dest.png" width="200px" height="400px" />
+![](/screenshots/plan_journey.png?raw=true )
+![](/change_source_dest.png?raw=true )
 
 <img src="https://github.com/Swati4star/IndiaHacks---Travel-and-Transportation/blob/master/screenshots/city_info.png" width="200px" height="400px" />
 <img src="https://github.com/Swati4star/IndiaHacks---Travel-and-Transportation/blob/master/screenshots/fun_fact.png" width="200px" height="400px" />
@@ -46,17 +48,34 @@ Now, its time for some shopping and searching for an accomodation. Get the detai
 <img src="https://github.com/Swati4star/IndiaHacks---Travel-and-Transportation/blob/master/screenshots/hotel.png" width="200px" height="400px" />
 <img src="https://github.com/Swati4star/IndiaHacks---Travel-and-Transportation/blob/master/screenshots/checklist.png" width="200px" height="400px" />
 
-##2.Travel Phase
+###2.Travel Phase
 This phase includes the phase during you are travelling to your destination
-<img src="https://github.com/Swati4star/IndiaHacks---Travel-and-Transportation/blob/master/screenshots/sstart_journey.png" width="200px" height="400px" />
+<img src="https://github.com/Swati4star/IndiaHacks---Travel-and-Transportation/blob/master/screenshots/start_joruney.png" width="200px" height="400px" />
+<img src="https://github.com/Swati4star/IndiaHacks---Travel-and-Transportation/blob/master/screenshots/books.png" width="200px" height="400px" />
 
 We try to find the current state of mind or the mood of our traveller on the basis of his activity and selections on the app and hence recommend him books and songs accordingly.
 
 
+**Mood Detection**
+
+<img src="https://github.com/Swati4star/IndiaHacks---Travel-and-Transportation/blob/master/screenshots/music.png" width="200px" height="400px" />
+<img src="https://github.com/Swati4star/IndiaHacks---Travel-and-Transportation/blob/master/screenshots/music_sad.png" width="200px" height="400px" />
 
 
-##3.Trip Phase
 
+###3.Trip Phase
+
+
+
+<img src="https://github.com/Swati4star/IndiaHacks---Travel-and-Transportation/blob/master/screenshots/hotel_real.png" width="200px" height="400px" />
+<img src="https://github.com/Swati4star/IndiaHacks---Travel-and-Transportation/blob/master/screenshots/medical.png" width="200px" height="400px" />
+<img src="https://github.com/Swati4star/IndiaHacks---Travel-and-Transportation/blob/master/screenshots/monu.png" width="200px" height="400px" />
+<img src="https://github.com/Swati4star/IndiaHacks---Travel-and-Transportation/blob/master/screenshots/nearby_places.png" width="200px" height="400px" />
+<img src="https://github.com/Swati4star/IndiaHacks---Travel-and-Transportation/blob/master/screenshots/rest.png" width="200px" height="400px" />
+
+
+
+<img src="https://github.com/Swati4star/IndiaHacks---Travel-and-Transportation/blob/master/screenshots/notification.png" width="200px" height="400px" />
 
 
 A very interesting feature that we plan to include in the product is - Push notification in between the journey. Often it happens that while travelling alone, a person tends to doze off. In order to save the traveller from missing out the destination station, we use the real time GPS location of the traveller to let him know about the city he is currently in or about to reach. We also plan to include an alarm notification which would go off when the traveller is around half an hour (calculated using the speed is travelling with) away from his destination so as to ensure the traveller doesn’t miss his destination. If interested, the traveller can take a little detour and explore this city as well. Just so that the traveller doesn’t get bored during his journey and to provide the maximum comfort possible, we provide the user with the best Music, Videos and stuff to read so that even if the person is travelling alone, he’s not practically alone. The Music, Videos and Reading material provided would depend on the tastes and the mood of the user which would be done using Mood Analysis with Machine Learning. For instance, if the user is feeling low, we can recommend him jokes or humorous videos. The UI of the app would also change according to user’s mood to make him comfortable.
