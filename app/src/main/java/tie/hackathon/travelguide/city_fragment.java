@@ -15,6 +15,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
@@ -35,7 +36,6 @@ import java.util.Iterator;
 import java.util.List;
 
 import Util.Utils;
-import adapters.Cities_adapter;
 import objects.Friend;
 import views.FontTextView;
 
@@ -46,22 +46,16 @@ public class city_fragment extends Fragment {
 
 
     List<String> id = new ArrayList<>();
-    List<String> names = new ArrayList<>();
     static Activity activity;
     ProgressBar pb;
 
     public city_fragment() {
-        // Required empty public constructor
     }
     ListView lv;
-    LinearLayout vehicle, acc, shop, city, check;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-
-
         View v = inflater.inflate(R.layout.content_citylist, container, false);
 
         lv = (ListView) v.findViewById(R.id.music_list);
@@ -150,14 +144,8 @@ public class city_fragment extends Fragment {
 
                     double color = Math.random();
                     int c = (int)(color*100)%8;
-                    int d = (int)(color*100)%2;
 
 
-                    int draw;
-                    if(d==1)
-                        draw = R.drawable.delhi;
-                    else
-                    draw = R.drawable.goa;
 
                     int colo;
                     switch (c){
@@ -241,14 +229,13 @@ public class city_fragment extends Fragment {
             }
 
             switch (position) {
-                // Merged page with 2 friends
                 case 1:
                     Picasso.with(getActivity()).load(friend1.getAvatar()).placeholder(R.drawable.delhi).into(holder.leftAvatar);
 
                     if (friend2 != null) {
 
 
-                        Picasso.with(getActivity()).load(friend2.getAvatar()).placeholder(R.drawable.goa).into(holder.rightAvatar);
+                        Picasso.with(getActivity()).load(friend2.getAvatar()).placeholder(R.drawable.delhi).into(holder.rightAvatar);
                     }
                     break;
                 default:
