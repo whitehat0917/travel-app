@@ -1,7 +1,6 @@
 package tie.hackathon.travelguide;
 
 import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -20,9 +19,10 @@ public class start_journey_fragment extends Fragment implements View.OnClickList
     static Activity activity;
 
     public start_journey_fragment() {
+        // Required empty public constructor
     }
 
-    LinearLayout music, books,  food, hangout, monuments, busstop, shopping, petrol, atm, hospital;
+    LinearLayout music, books, friends, food, hangout, monuments, busstop, shopping, petrol, atm, hospital;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -31,7 +31,11 @@ public class start_journey_fragment extends Fragment implements View.OnClickList
 
         View v = inflater.inflate(R.layout.content_start_journey, container, false);
 
+        //   tweet = (LinearLayout) v.findViewById(R.id.tweet);
         music = (LinearLayout) v.findViewById(R.id.music);
+        // jokes = (LinearLayout) v.findViewById(R.id.jokes);
+        // video = (LinearLayout) v.findViewById(R.id.video);
+        //  news = (LinearLayout) v.findViewById(R.id.news);
         books = (LinearLayout) v.findViewById(R.id.book);
         food = (LinearLayout) v.findViewById(R.id.food);
         hangout = (LinearLayout) v.findViewById(R.id.hangoutplaces);
@@ -42,7 +46,11 @@ public class start_journey_fragment extends Fragment implements View.OnClickList
         atm = (LinearLayout) v.findViewById(R.id.atm);
         hospital = (LinearLayout) v.findViewById(R.id.hospital);
 
+        //  tweet.setOnClickListener(this);
         music.setOnClickListener(this);
+        //  jokes.setOnClickListener(this);
+        //video.setOnClickListener(this);
+        //   news.setOnClickListener(this);
         books.setOnClickListener(this);
         food.setOnClickListener(this);
         hangout.setOnClickListener(this);
@@ -58,9 +66,9 @@ public class start_journey_fragment extends Fragment implements View.OnClickList
 
 
     @Override
-    public void onAttach(Context c) {
-        super.onAttach(c);
-        this.activity = (Activity)c;
+    public void onAttach(Activity activity) {
+        super.onAttach(activity);
+        this.activity = activity;
     }
 
 

@@ -33,8 +33,8 @@ public class Splash extends AppCompatActivity {
 
         final PathView pathView = (PathView) findViewById(R.id.pathView);
         pathView.getPathAnimator()
-                .delay(1000)
-                .duration(1000)
+                .delay(2000)
+                .duration(2000)
                 .interpolator(new AccelerateDecelerateInterpolator())
                 .start();
 
@@ -45,12 +45,14 @@ public class Splash extends AppCompatActivity {
 
             @Override
             public void run() {
+                // This method will be executed once the timer is over
+                // Start your app main activity
                 Intent i = new Intent(Splash.this,LoginActivity.class);
                 startActivity(i);
                 finish();
 
             }
-        }, 2000);
+        }, 4000);
 
     }
 
