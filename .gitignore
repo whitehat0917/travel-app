@@ -37,6 +37,3 @@ obj/
 
 #database connection file
 connection.inc.php
-
-#php error log files
-error_log
