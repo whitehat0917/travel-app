@@ -1,26 +1,18 @@
 <?php
 
+$app_code = "AJKnXv84fjrb0KIHawS0Tg";
+$app_id = "DemoAppId01082013GAL";
+
 $echonest_api_key = '0BOM42L07CR77AZZJ';
 
 $websites = ['http://www.saharastar.com/','http://www.mumbai.grand.hyatt.com','http://www.tridenthotels.com/mumbai_bandra_kurla/index.asp','http://international.bawahotels.com'];
 $phones = ['+912240851800','+912261427328','+912266761234','+912266727777'];
 
 
-/**
- * function to convert the passed timestamp to a human readable format
- * @param  integer 	$time 	timestamp
- * @return string 		 	desired time string
- */
 function getTimeStamp($time){
 	return date('Y-m-d h:i:s', $time);
 }
 
-
-/**
- * function to make cURL calls
- * @param  string 	$url 	URL at which cURL call is to be made
- * @return string      		output string
- */
 function curl_URL_call($url){
 	$ch = curl_init();
 	curl_setopt($ch, CURLOPT_URL, $url);
@@ -31,27 +23,12 @@ function curl_URL_call($url){
 	return $output;
 }
 
-
-/**
- * Here Places API called and response is returned
- * @param  array 	$params    
- * @param  float 	$latitude  
- * @param  float 	$longitude 
- * @param  integer 	$limit     
- * @return array
- */
 function call_here_api($params, $latitude, $longitude, $limit = 0){
-	$here_api_url = "https://places.demo.api.here.com/places/v1/discover/explore";
-
-	$here_api_url = $here_api_url
-		. '?at=' . $latitude . '%2C' . $longitude
-		. '&cat=' . $params
-		. '&app_id=' . HERE_APP_ID
-		. '&app_code=' . HERE_APP_CODE;
+	$here_api_url = 'https://places.demo.api.here.com/places/v1/discover/explore?at=' . $latitude . '%2C' . $longitude . '&cat=' . $params . '&app_id=' .$GLOBALS['app_id'] . '&app_code=' . $GLOBALS['app_code'];
 	
 	if($limit != 0)
 		$here_api_url .= '&size=' . $limit;
-
+	
 	$response = json_decode(curl_URL_call($here_api_url), true);
 	return $response['results']['items'];
 }
@@ -85,28 +62,11 @@ function getCityWeather($city_name){
 	$api_response = json_decode(curl_URL_call($url), true);
 
 	$return_array = array(
-		'icon'			=> "http://openweathermap.org/img/w/" . trim($api_response['weather'][0]['icon']) . ".png",
+		'icon'			=> "http://openweathermap.org/img/w/" . trim($api_response['weather'][0]['icon']),
 		'humidity'		=> (float)$api_response['main']['humidity'],
 		'temprature'	=> (float)$api_response['main']['temp'] - 273.15,
 		'description'	=> trim($api_response['weather'][0]['description']),
 	);
 
 	return $return_array;
-}
-
-
-function change_cityName($string){
-	return ucwords(strtolower(trim($string)));
-}
-
-
-function increase_trip_count($connection, $city_id){
-	$query = "UPDATE `cities` SET `number_of_trips`=`number_of_trips`+1 WHERE `id`='$city_id'";
-	return (bool)mysqli_query($connection, $query);
-}
-
-
-function getCityName($connection, $city_id){
-	$query = "SELECT `city_name` FROM `cities` WHERE `id`='$city_id' LIMIT 1";
-	return mysqli_fetch_assoc(mysqli_query($connection, $query));
 }
