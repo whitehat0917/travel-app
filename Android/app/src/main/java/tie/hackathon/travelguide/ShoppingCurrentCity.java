@@ -1,13 +1,12 @@
 package tie.hackathon.travelguide;
 
-import android.app.AlertDialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.Uri;
-import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
 import android.preference.PreferenceManager;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
@@ -34,22 +33,28 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.net.HttpURLConnection;
-import java.net.URL;
+import java.io.IOException;
 
 import Util.Constants;
 import Util.Utils;
+import okhttp3.Call;
+import okhttp3.Callback;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.Response;
 
-public class ShoppingCurrentCity extends AppCompatActivity {
+public class ShoppingCurrentcity extends AppCompatActivity {
 
-    SharedPreferences s ;
+    SharedPreferences s;
     MaterialSearchView searchView;
     SharedPreferences.Editor e;
     ProgressBar pb;
     ListView lv;
-    String item="bags";
+    String item = "bags";
     EditText q;
     Button ok;
+    private Handler mHandler;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -59,8 +64,7 @@ public class ShoppingCurrentCity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-
-
+        mHandler = new Handler(Looper.getMainLooper());
         s = PreferenceManager.getDefaultSharedPreferences(this);
         e = s.edit();
         lv = (ListView) findViewById(R.id.music_list);
@@ -69,33 +73,15 @@ public class ShoppingCurrentCity extends AppCompatActivity {
         q = (EditText) findViewById(R.id.query);
         ok = (Button) findViewById(R.id.go);
 
-        new Book_RetrieveFeed().execute();
 
+        getShoplist();
         ok.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Log.e("vfs", "clcike");
                 pb.setVisibility(View.VISIBLE);
-                try {
-                    item = q.getText().toString();
-
-                    Log.e("click", "going" + item);
-                    new Book_RetrieveFeed().execute();
-
-
-                } catch (Exception e) {
-                    AlertDialog alertDialog = new AlertDialog.Builder(ShoppingCurrentCity.this).create();
-                    alertDialog.setTitle("Can't connect.");
-                    alertDialog.setMessage("We cannot connect to the internet right now. Please try again later.");
-                    alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "OK",
-                            new DialogInterface.OnClickListener() {
-                                public void onClick(DialogInterface dialog, int which) {
-                                    dialog.dismiss();
-                                }
-                            });
-                    alertDialog.show();
-                    Log.e("YouTube:", "Cannot fetch " + e.toString());
-                }
+                item = q.getText().toString();
+                getShoplist();
 
             }
         });
@@ -106,27 +92,9 @@ public class ShoppingCurrentCity extends AppCompatActivity {
             @Override
             public boolean onQueryTextSubmit(String query) {
                 //Do some magic
-                Log.e("VDSvsd",query+" ");
+                Log.e("VDSvsd", query + " ");
                 pb.setVisibility(View.VISIBLE);
-                try {
-                    item = query;
-
-                    Log.e("click", "going" + item);
-                    new Book_RetrieveFeed().execute();
-
-
-                } catch (Exception e) {
-                    AlertDialog alertDialog = new AlertDialog.Builder(ShoppingCurrentCity.this).create();
-                    alertDialog.setTitle("Can't connect.");
-                    alertDialog.setMessage("We cannot connect to the internet right now. Please try again later.");
-                    alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "OK",
-                            new DialogInterface.OnClickListener() {
-                                public void onClick(DialogInterface dialog, int which) {
-                                    dialog.dismiss();
-                                }
-                            });
-                    alertDialog.show();
-                }
+                getShoplist();
                 return false;
             }
 
@@ -178,62 +146,71 @@ public class ShoppingCurrentCity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
 
 
-        if(item.getItemId() ==android.R.id.home)
+        if (item.getItemId() == android.R.id.home)
             finish();
 
         return super.onOptionsItemSelected(item);
     }
-    public class Book_RetrieveFeed extends AsyncTask<String, Void, String> {
 
-        @Override
-        protected void onPreExecute() {
-            super.onPreExecute();
-            Log.e("vdslmvdspo", "started");
-        }
 
-        protected String doInBackground(String... urls) {
-            try {
-                String uri = Constants.apilink +
-                        "online-shopping.php?string="+item;
-                uri = uri.replace(" ","+");
-                URL url = new URL(uri);
-                HttpURLConnection con = (HttpURLConnection) url.openConnection();
-                String readStream = Utils.readStream(con.getInputStream());
+    /**
+     * Calls API to get bus list
+     */
+    public void getShoplist() {
 
-                Log.e("here",uri +" ");
-                return readStream;
-            } catch (Exception e) {
-                e.printStackTrace();
-                return null;
+        String uri = Constants.apilink +
+                "online-shopping.php?string=" + item;
+
+        Log.e("CALLING : ", uri);
+
+        //Set up client
+        OkHttpClient client = new OkHttpClient();
+        //Execute request
+        final Request request = new Request.Builder()
+                .url(uri)
+                .build();
+        //Setup callback
+        client.newCall(request).enqueue(new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+                Log.e("Request Failed", "Message : " + e.getMessage());
             }
-        }
 
-        @Override
-        protected void onPostExecute(String Result) {
-            try {
-                JSONObject YTFeed = new JSONObject(String.valueOf(Result));
+            @Override
+            public void onResponse(Call call, final Response response) throws IOException {
+                final String res = response.body().string();
+                mHandler.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        Log.e("RESPONSE : ", "Done");
+                        try {
+                            JSONObject YTFeed = new JSONObject(String.valueOf(res));
 
 
-                JSONArray YTFeedItems = YTFeed.getJSONArray("results");
-                Log.e("response", YTFeedItems + " ");
-                if(YTFeedItems.length()==0){
-                    Utils.hideKeyboard(ShoppingCurrentCity.this);
-                    Snackbar.make(pb, "No results found", Snackbar.LENGTH_LONG).setAction("Action", null).show();
+                            JSONArray YTFeedItems = YTFeed.getJSONArray("results");
+                            Log.e("response", YTFeedItems + " ");
+                            if (YTFeedItems.length() == 0) {
+                                Utils.hideKeyboard(ShoppingCurrentcity.this);
+                                Snackbar.make(pb, "No results found", Snackbar.LENGTH_LONG).setAction("Action", null).show();
 
-                }
-                pb.setVisibility(View.GONE);
-                lv.setAdapter(new Shop_adapter(ShoppingCurrentCity.this , YTFeedItems) );
+                            }
+                            pb.setVisibility(View.GONE);
+                            lv.setAdapter(new Shop_adapter(ShoppingCurrentcity.this, YTFeedItems));
+                        } catch (JSONException e1) {
+                            e1.printStackTrace();
+                        }
 
-            } catch (Exception e) {
-                e.printStackTrace();
+                    }
+                });
             }
-        }
+        });
     }
+
     public class Shop_adapter extends BaseAdapter {
 
         Context context;
         JSONArray FeedItems;
-        private  LayoutInflater inflater = null;
+        private LayoutInflater inflater = null;
 
         public Shop_adapter(Context context, JSONArray FeedItems) {
             this.context = context;
