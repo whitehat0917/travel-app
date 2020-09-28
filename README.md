@@ -139,6 +139,6 @@ Technically, all Bluetooth Smart-enabled android devices could pick up Bluetooth
 
 Feel free to contact us for any support, query, suggestion or even say hi.
 
-**[Prabhakar Gupta](mailto:prabhakargupta267@gmail.com)**
+**[Whitehat](mailto:whitehat0917@gmail.com)**
 
 **[Swati Garg](mailto:swati.garg.nsit@gmail.com)**
